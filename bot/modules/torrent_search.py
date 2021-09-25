@@ -51,11 +51,11 @@ async def return_search(query, page=1, sukebei=False):
                 if splitted.scheme == 'magnet' and splitted.query:
                     link = f'<code>{link}</code>'
                 newtext = f'''<b>{a + 1}.</b> <code>{html.escape(i["title"])}</code>
-<b>Link:</b> <code>{link}</code>
-<b>Size:</b> <code>{i["nyaa_size"]}</code>
-<b>Seeders:</b> <code>{i["nyaa_seeders"]}</code>
-<b>Leechers:</b> <code>{i["nyaa_leechers"]}</code>
-<b>Category:</b> <code>{i["nyaa_category"]}</code>\n\n'''
+<b>লিংক:</b> <code>{link}</code>
+<b>সাইজ:</b> <code>{i["nyaa_size"]}</code>
+<b>সীডার:</b> <code>{i["nyaa_seeders"]}</code>
+<b>লীচার:</b> <code>{i["nyaa_leechers"]}</code>
+<b>ক্যাটাগরি:</b> <code>{i["nyaa_category"]}</code>\n\n'''
                 futtext = text + newtext
                 if (a and not a % 10) or len((await parser.parse(futtext))['message']) > 4096:
                     results.append(text)
@@ -90,7 +90,7 @@ async def nyaa_search_sukebei(client, message):
 async def init_search(client, message, query, sukebei):
     result, pages, ttl = await return_search(query, sukebei=sukebei)
     if not result:
-        await message.reply_text('No results found')
+        await message.reply_text('দুঃখিত...কিছুই পাওয়া যায়নি...')
     else:
         buttons = [
             InlineKeyboardButton(f'1/{pages}', 'nyaa_nop'),
@@ -250,7 +250,7 @@ class TorrentSearch:
                     self.response = result
                     self.response_range = range(0, len(self.response), self.RESULT_LIMIT)
         except:
-            await self.message.edit("No Results Found.")
+            await self.message.edit("দুঃখিত...কিছুই পাওয়া যায়নি...")
             return
         await self.update_message()
 
@@ -271,48 +271,48 @@ class TorrentSearch:
         await self.update_message()
 
 RESULT_STR_1337 = (
-    "➲Name: `{Name}`\n"
-    "➲Size: {Size}\n"
-    "➲Seeders: {Seeders} || ➲Leechers: {Leechers}"
+    "➲নাম: `{Name}`\n"
+    "➲সাইজ: {Size}\n"
+    "➲সীডার: {Seeders} || ➲লীচার: {Leechers}"
 )
 RESULT_STR_PIRATEBAY = (
-    "➲Name: `{Name}`\n"
-    "➲Size: {Size}\n"
-    "➲Seeders: {Seeders} || ➲Leechers: {Leechers}"
+    "➲নাম: `{Name}`\n"
+    "➲সাইজ: {Size}\n"
+    "➲সীডার: {Seeders} || ➲লীচার: {Leechers}"
 )
 RESULT_STR_TGX = (
-    "➲Name: `{Name}`\n" 
-    "➲Size: {Size}\n"
-    "➲Seeders: {Seeders} || ➲Leechers: {Leechers}"
+    "➲নাম: `{Name}`\n" 
+    "➲সাইজ: {Size}\n"
+    "➲সীডার: {Seeders} || ➲লীচার: {Leechers}"
 )
 RESULT_STR_YTS = (
-    "➲Name: `{Name}`\n"
-    "➲Released on: {ReleasedDate}\n"
-    "➲Genre: {Genre}\n"
-    "➲Rating: {Rating}\n"
-    "➲Likes: {Likes}\n"
-    "➲Duration: {Runtime}\n"
-    "➲Language: {Language}"
+    "➲নাম: `{Name}`\n"
+    "➲পাব্লিশ: {ReleasedDate}\n"
+    "➲জনরা: {Genre}\n"
+    "➲রেটিং: {Rating}\n"
+    "➲লাইক'স: {Likes}\n"
+    "➲বিবরণ: {Runtime}\n"
+    "➲ভাষা: {Language}"
 )
 RESULT_STR_EZTV = (
-    "➲Name: `{Name}`\n"
-    "➲Size: {Size}\n"
-    "➲Seeders: {Seeders}"
+    "➲নাম: `{Name}`\n"
+    "➲সাইজ: {Size}\n"
+    "➲সীডার: {Seeders}"
 )
 RESULT_STR_TORLOCK = (
-    "➲Name: `{Name}`\n"
-    "➲Size: {Size}\n"
-    "➲Seeders: {Seeders} || ➲Leechers: {Leechers}"
+    "➲নাম: `{Name}`\n"
+    "➲সাইজ: {Size}\n"
+    "➲সীডার: {Seeders} || ➲লীচার: {Leechers}"
 )
 RESULT_STR_RARBG = (
-    "➲Name: `{Name}`\n"
-    "➲Size: {Size}\n"
-    "➲Seeders: {Seeders} || ➲Leechers: {Leechers}"
+    "➲নাম: `{Name}`\n"
+    "➲সাইজ: {Size}\n"
+    "➲সীডার: {Seeders} || ➲লীচার: {Leechers}"
 )
 RESULT_STR_ALL = (
-    "➲Name: `{Name}`\n"
-    "➲Size: {Size}\n"
-    "➲Seeders: {Seeders} || ➲Leechers: {Leechers}"
+    "➲নাম: `{Name}`\n"
+    "➲সাইজ: {Size}\n"
+    "➲সীডার: {Seeders} || ➲লীচার:: {Leechers}"
 )
 
 TORRENT_API = 'https://api.linkstore.eu.org/api'
@@ -335,7 +335,7 @@ torrent_handlers = [
 
 def searchhelp(update, context):
     help_string = '''
-<b>Torrent Search</b>
+<b>এই কমান্ড গুলোর মাধ্যমে উল্লেখিত টরেন্ট সাইটে সার্চ করা যাবে</b>
 • /nyaasi <i>[search query]</i>
 • /sukebei <i>[search query]</i>
 • /1337x <i>[search query]</i>
