@@ -131,7 +131,7 @@ class GoogleDriveHelper:
                                      resumable=False)
         file_metadata = {
             'name': file_name,
-            'description': 'Uploaded using Slam Mirrorbot',
+            'description': 'Uploaded By Bangladesh Hoarding',
             'mimeType': mime_type,
         }
         if parent_id is not None:
@@ -144,7 +144,7 @@ class GoogleDriveHelper:
         try:
             file_id = self.getIdFromUrl(link)
         except (KeyError,IndexError):
-            msg = "Google Drive ID could not be found in the provided link"
+            msg = "আপনার দেওয়া লিংকে কোন ড্রাইভ ফাইল/ফোল্ডার আইডি পাওয়া যায়নি"
             return msg
         msg = ''
         try:
@@ -153,9 +153,9 @@ class GoogleDriveHelper:
         except HttpError as err:
             LOGGER.error(str(err))
             if "File not found" in str(err):
-                msg = "No such file exist"
+                msg = "এমন কোন ফাইল নেই"
             else:
-                msg = "Something went wrong check log"
+                msg = "কিছু ভুল হচ্ছে, লগ চেক করুন"
         finally:
             return msg
 
@@ -190,7 +190,7 @@ class GoogleDriveHelper:
         # File body description
         file_metadata = {
             'name': file_name,
-            'description': 'Uploaded by Slam Mirrorbot',
+            'description': 'Uploaded By Bangladesh Hoarding',
             'mimeType': mime_type,
         }
         try:
@@ -390,7 +390,7 @@ class GoogleDriveHelper:
         try:
             file_id = self.getIdFromUrl(link)
         except (KeyError,IndexError):
-            msg = "Google Drive ID could not be found in the provided link"
+            msg = "আপনার দেওয়া লিংকে কোন ড্রাইভ ফাইল/ফোল্ডার আইডি পাওয়া যায়নি অথবা ফাইলটি পাবলিক করা নেই"
             return msg
         msg = ""
         LOGGER.info(f"File ID: {file_id}")
@@ -405,41 +405,41 @@ class GoogleDriveHelper:
                     msg = self.deletefile(durl)
                     LOGGER.info(f"{msg}")
                     return "your clone has been stopped and cloned data has been deleted!", "cancelled"
-                msg += f'<b>Filename: </b><code>{meta.get("name")}</code>\n<b>Size: </b><code>{get_readable_file_size(self.transferred_size)}</code>'
-                msg += '\n<b>Type: </b><code>Folder</code>'
-                msg += f'\n<b>SubFolders: </b><code>{self.total_folders}</code>'
-                msg += f'\n<b>Files: </b><code>{self.total_files}</code>'
+                msg += f'<b>📂● ফাইলের নাম: </b><code>{meta.get("name")}</code>\n<b>╔● সাইজ: </b><code>{get_readable_file_size(self.transferred_size)}</code>'
+                msg += f'\n<b>╟● ফাইলের ধরন: </b><code>Folder</code>'
+                msg += f'\n<b>╟● সাব-ফোল্ডার সংখ্যা: </b><code>{self.total_folders}</code>'
+                msg += f'\n<b>╚● ফাইল সংখ্যা: </b><code>{self.total_files}</code>'
                 buttons = button_build.ButtonMaker()
                 if SHORTENER is not None and SHORTENER_API is not None:
                     surl = short_url(durl)
-                    buttons.buildbutton("☁️ Drive Link", surl)
+                    buttons.buildbutton("☁️ ড্রাইভ লিংক ☁️", surl)
                 else:
-                    buttons.buildbutton("☁️ Drive Link", durl)
+                    buttons.buildbutton("☁️ ড্রাইভ লিংক ☁️", durl)
                 if INDEX_URL is not None:
                     url_path = requests.utils.quote(f'{meta.get("name")}')
                     url = f'{INDEX_URL}/{url_path}/'
                     if SHORTENER is not None and SHORTENER_API is not None:
                         siurl = short_url(url)
-                        buttons.buildbutton("⚡ Index Link", siurl)
+                        buttons.buildbutton("⚡ ইনডেক্স লিংক ⚡", siurl)
                     else:
-                        buttons.buildbutton("⚡ Index Link", url)
+                        buttons.buildbutton("⚡ ইনডেক্স লিংক ⚡", url)
             else:
                 file = self.copyFile(meta.get('id'), parent_id)
-                msg += f'<b>Filename: </b><code>{file.get("name")}</code>'
+                msg += f'<b>ফাইলের নাম: </b><code>{file.get("name")}</code>'
                 durl = self.__G_DRIVE_BASE_DOWNLOAD_URL.format(file.get("id"))
                 buttons = button_build.ButtonMaker()
                 if SHORTENER is not None and SHORTENER_API is not None:
                     surl = short_url(durl)
-                    buttons.buildbutton("☁️ Drive Link", surl)
+                    buttons.buildbutton("☁️ ড্রাইভ লিংক ☁️", surl)
                 else:
-                    buttons.buildbutton("☁️ Drive Link", durl)
+                    buttons.buildbutton("☁️ ড্রাইভ লিংক ☁️", durl)
                 try:
                     typ = file.get('mimeType')
                 except:
                     typ = 'File'
                 try:
-                    msg += f'\n<b>Size: </b><code>{get_readable_file_size(int(meta.get("size")))}</code>'
-                    msg += f'\n<b>Type: </b><code>{typ}</code>'
+                    msg += f'\n<b>╔● ফাইল সাইজ: </b><code>{get_readable_file_size(int(meta.get("size")))}</code>'
+                    msg += f'\n<b>╚● ফাইলের ধরন: </b><code>{typeee}</code>'
                 except TypeError:
                     pass
                 if INDEX_URL is not None:
@@ -448,14 +448,14 @@ class GoogleDriveHelper:
                     urls = f'{INDEX_URL}/{url_path}?a=view'
                     if SHORTENER is not None and SHORTENER_API is not None:
                         siurl = short_url(url)
-                        buttons.buildbutton("⚡ Index Link", siurl)
+                        buttons.buildbutton("⚡ ইনডেক্স লিংক ⚡", siurl)
                         if VIEW_LINK:
                             siurls = short_url(urls)
-                            buttons.buildbutton("🌐 View Link", siurls)
+                            buttons.buildbutton("🌐 ভিউ লিংক 🌐", siurls)
                     else:
-                        buttons.buildbutton("⚡ Index Link", url)
+                        buttons.buildbutton("⚡ ইনডেক্স লিংক ⚡", url)
                         if VIEW_LINK:
-                            buttons.buildbutton("🌐 View Link", urls)
+                            buttons.buildbutton("🌐 ভিউ লিংক 🌐", urls)
             if BUTTON_FOUR_NAME is not None and BUTTON_FOUR_URL is not None:
                 buttons.buildbutton(f"{BUTTON_FOUR_NAME}", f"{BUTTON_FOUR_URL}")
             if BUTTON_FIVE_NAME is not None and BUTTON_FIVE_URL is not None:
@@ -469,13 +469,13 @@ class GoogleDriveHelper:
             err = str(err).replace('>', '').replace('<', '')
             LOGGER.error(err)
             if "User rate limit exceeded" in str(err):
-                msg = "User rate limit exceeded."
+                msg = "আপনার দেওয়া লিংকের ডাউনলোড/আপলোড লিমিট শেষ.অন্য লিংক ট্রাই করুন.\n #User_rate_limit_exceeded."
             elif "File not found" in str(err):
                 token_service = self.alt_authorize()
                 if token_service is not None:
                     self.__service = token_service
                     return self.clone(link)
-                msg = "File not found."
+                msg = "কোন ফাইল পাওয়া যায়নি অথবা ফাইলটি পাবলিক করা নেই."
             else:
                 msg = f"Error.\n{err}"
             return msg, ""
@@ -610,9 +610,9 @@ class GoogleDriveHelper:
                     content += f'<b> | <a href="https://telegra.ph/{self.path[nxt_page]}">Next</a></b>'
                     nxt_page += 1
             Telegraph(access_token=telegraph_token).edit_page(path = self.path[prev_page],
-                                 title = 'Slam Mirrorbot Search',
-                                 author_name='Slam Mirrorbot',
-                                 author_url='https://github.com/SlamDevs/slam-mirrorbot',
+                                 title = 'Bangladesh Hoarding Search',
+                                 author_name='Bangladesh Hoarding',
+                                 author_url='https://t.me/BangladeshHoarding',
                                  html_content=content)
         return
 
@@ -742,9 +742,9 @@ class GoogleDriveHelper:
                     msg += f"📁 <code>{file.get('name')}<br>(folder)</code><br>"
                     if SHORTENER is not None and SHORTENER_API is not None:
                         sfurl = short_url(furl)
-                        msg += f"<b><a href={sfurl}>Drive Link</a></b>"
+                        msg += f"<b><a href={sfurl}>☁️ ড্রাইভ লিংক ☁️</a></b>"
                     else:
-                        msg += f"<b><a href={furl}>Drive Link</a></b>"
+                        msg += f"<b><a href={furl}>☁️ ড্রাইভ লিংক ☁️</a></b>"
                     if INDEX_URLS[index] is not None:
                         if RECURSIVE_SEARCH:
                             url_path = "/".join([requests.utils.quote(n, safe='') for n in self.get_recursive_list(file, parent_id)])
@@ -753,9 +753,9 @@ class GoogleDriveHelper:
                         url = f'{INDEX_URLS[index]}/{url_path}/'
                         if SHORTENER is not None and SHORTENER_API is not None:
                             siurl = short_url(url)
-                            msg += f' <b>| <a href="{siurl}">Index Link</a></b>'
+                            msg += f' <b>| <a href="{siurl}">⚡ ইনডেক্স লিংক ⚡</a></b>'
                         else:
-                            msg += f' <b>| <a href="{url}">Index Link</a></b>'
+                            msg += f' <b>| <a href="{url}">⚡ ইনডেক্স লিংক ⚡</a></b>'
                 elif file.get('mimeType') == 'application/vnd.google-apps.shortcut':
                     msg += f"⁍<a href='https://drive.google.com/drive/folders/{file.get('id')}'>{file.get('name')}" \
                         f"</a> (shortcut)"
@@ -765,9 +765,9 @@ class GoogleDriveHelper:
                     msg += f"📄 <code>{file.get('name')}<br>({get_readable_file_size(int(file.get('size')))})</code><br>"
                     if SHORTENER is not None and SHORTENER_API is not None:
                         sfurl = short_url(furl)
-                        msg += f"<b><a href={sfurl}>Drive Link</a></b>"
+                        msg += f"<b><a href={sfurl}>☁️ ড্রাইভ লিংক ☁️</a></b>"
                     else:
-                        msg += f"<b><a href={furl}>Drive Link</a></b>"
+                        msg += f"<b><a href={furl}>☁️ ড্রাইভ লিংক ☁️</a></b>"
                     if INDEX_URLS[index] is not None:
                         if RECURSIVE_SEARCH:
                             url_path = "/".join(
@@ -781,14 +781,14 @@ class GoogleDriveHelper:
                         urls = f'{INDEX_URLS[index]}/{url_path}?a=view'
                         if SHORTENER is not None and SHORTENER_API is not None:
                             siurl = short_url(url)
-                            msg += f' <b>| <a href="{siurl}">Index Link</a></b>'
+                            msg += f' <b>| <a href="{siurl}">⚡ ইনডেক্স লিংক ⚡</a></b>'
                             if VIEW_LINK:
                                 siurls = short_url(urls)
-                                msg += f' <b>| <a href="{siurls}">View Link</a></b>'
+                                msg += f' <b>| <a href="{siurls}">🌐 ভিউ লিংক 🌐</a></b>'
                         else:
-                            msg += f' <b>| <a href="{url}">Index Link</a></b>'
+                            msg += f' <b>| <a href="{url}"⚡ ইনডেক্স লিংক ⚡</a></b>'
                             if VIEW_LINK:
-                                msg += f' <b>| <a href="{urls}">View Link</a></b>'
+                                msg += f' <b>| <a href="{urls}">🌐 ভিউ লিংক 🌐</a></b>'
                 msg += '<br><br>'
                 content_count += 1
                 all_contents_count += 1
@@ -807,9 +807,9 @@ class GoogleDriveHelper:
 
         for content in self.telegraph_content :
             self.path.append(Telegraph(access_token=telegraph_token).create_page(
-                                                    title = 'Slam Mirrorbot Search',
-                                                    author_name='Slam Mirrorbot',
-                                                    author_url='https://github.com/SlamDevs/slam-mirrorbot',
+                                                    title = 'Bangladesh Hoarding Search',
+                                                    author_name='Bangladesh Hoarding',
+                                                    author_url='https://t.me/BangladeshHoarding',
                                                     html_content=content
                                                     )['path'])
 
@@ -828,7 +828,7 @@ class GoogleDriveHelper:
         try:
             file_id = self.getIdFromUrl(link)
         except (KeyError,IndexError):
-            msg = "Google Drive ID could not be found in the provided link"
+            msg = "আপনার দেওয়া লিংকে কোন ড্রাইভ ফাইল/ফোল্ডার আইডি পাওয়া যায়নি অথবা ফাইলটি পাবলিক করা নেই"
             return msg
         msg = ""
         LOGGER.info(f"File ID: {file_id}")
@@ -839,13 +839,13 @@ class GoogleDriveHelper:
             LOGGER.info(f"Counting: {name}")
             if drive_file['mimeType'] == self.__G_DRIVE_DIR_MIME_TYPE:
                 self.gDrive_directory(**drive_file)
-                msg += f'<b>Filename: </b><code>{name}</code>'
-                msg += f'\n<b>Size: </b><code>{get_readable_file_size(self.total_bytes)}</code>'
-                msg += '\n<b>Type: </b><code>Folder</code>'
-                msg += f'\n<b>SubFolders: </b><code>{self.total_folders}</code>'
-                msg += f'\n<b>Files: </b><code>{self.total_files}</code>'
+                msg += f'<b>📂● ফাইলের নাম: </b><code>{name}</code>'
+                msg += f'\n<b>╔● সাইজ: </b><code>{get_readable_file_size(self.total_bytes)}</code>'
+                msg += f'\n<b>╟● ধরন: </b><code>Folder</code>'
+                msg += f'\n<b>╟● সাব-ফোল্ডার সংখ্যা: </b><code>{self.total_folders}</code>'
+                msg += f'\n<b>╟● ফাইল সংখ্যা: </b><code>{self.total_files}</code>'
             else:
-                msg += f'<b>Filename: </b><code>{name}</code>'
+                msg += f'<b>📂● ফাইলের নাম: </b><code>{name}</code>'
                 try:
                     typee = drive_file['mimeType']
                 except:
@@ -853,9 +853,9 @@ class GoogleDriveHelper:
                 try:
                     self.total_files += 1
                     self.gDrive_file(**drive_file)
-                    msg += f'\n<b>Size: </b><code>{get_readable_file_size(self.total_bytes)}</code>'
-                    msg += f'\n<b>Type: </b><code>{typee}</code>'
-                    msg += f'\n<b>Files: </b><code>{self.total_files}</code>'
+                    msg += f'\n<b>╔● সাইজ: </b><code>{get_readable_file_size(self.total_bytes)}</code>'
+                    msg += f'\n<b>╟● ধরন: </b><code>{typee}</code>'
+                    msg += f'\n<b>╟● ফাইল সংখ্যা: </b><code>{self.total_files}</code>'
                 except TypeError:
                     pass
         except Exception as err:
@@ -866,7 +866,7 @@ class GoogleDriveHelper:
                 if token_service is not None:
                     self.__service = token_service
                     return self.count(link)
-                msg = "File not found." 
+                msg = "দুঃখিত...কোন ফাইল/ফোল্ডার পাওয়া যায়নি."
             else:
                 msg = f"Error.\n{err}"
         return msg
@@ -897,7 +897,7 @@ class GoogleDriveHelper:
         try:
             file_id = self.getIdFromUrl(link)
         except (KeyError,IndexError):
-            msg = "Google Drive ID could not be found in the provided link"
+            msg = "আপনার দেওয়া লিংকে কোন ড্রাইভ ফাইল/ফোল্ডার আইডি পাওয়া যায়নি অথবা ফাইলটি পাবলিক করা নেই"
             return msg, "", "", ""
         LOGGER.info(f"File ID: {file_id}")
         try:
@@ -923,7 +923,7 @@ class GoogleDriveHelper:
                 if token_service is not None:
                     self.__service = token_service
                     return self.clonehelper(link)
-                msg = "File not found."  
+                msg = "দুঃখিত...কোন ফাইল/ফোল্ডার পাওয়া যায়নি."
             else:
                 msg = f"Error.\n{err}"
             return msg, "", "", ""
