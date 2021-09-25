@@ -88,6 +88,8 @@ def log(update, context):
 
 
 help_string_telegraph = f'''<br>
+<b>এখানে বট এর সকল কমান্ড ও তাদের ব্যবহারের নিয়ম দেওয়া আছে, ভালোভাবে দেখে নিন... অথবা গ্রুপের মেম্বারগন যেভাবে ব্যবহার করছে তা অনুসরন করুন</b>
+<br>
 <b>/{BotCommands.HelpCommand}</b>: To get this message
 <br><br>
 <b>/{BotCommands.MirrorCommand}</b> [download_url][magnet_link]: Start mirroring the link to Google Drive.
@@ -166,38 +168,12 @@ help = Telegraph(access_token=telegraph_token).create_page(
     )["path"]
 
 help_string = f'''
-/{BotCommands.PingCommand}: Check how long it takes to Ping the Bot
-
-/{BotCommands.AuthorizeCommand}: Authorize a chat or a user to use the bot (Can only be invoked by Owner & Sudo of the bot)
-
-/{BotCommands.UnAuthorizeCommand}: Unauthorize a chat or a user to use the bot (Can only be invoked by Owner & Sudo of the bot)
-
-/{BotCommands.AuthorizedUsersCommand}: Show authorized users (Only Owner & Sudo)
-
-/{BotCommands.AddSudoCommand}: Add sudo user (Only Owner)
-
-/{BotCommands.RmSudoCommand}: Remove sudo users (Only Owner)
-
-/{BotCommands.RestartCommand}: Restart the bot
-
-/{BotCommands.LogCommand}: Get a log file of the bot. Handy for getting crash reports
-
-/{BotCommands.SpeedCommand}: Check Internet Speed of the Host
-
-/{BotCommands.ShellCommand}: Run commands in Shell (Only Owner)
-
-/{BotCommands.ExecHelpCommand}: Get help for Executor module (Only Owner)
-
-/{BotCommands.TsHelpCommand}: Get help for Torrent search module
-
-✍️ অনুবাদকঃ "এলেক্স স্টুয়ার্ট ©️" 
-🙏 সম্পাদনায়ঃ "🇧🇩বাংলাদেশ হোর্ডিং🇧🇩"
-    @BangladeshHoarding
+🥺🙏 বট ব্যবহার এর পূর্বে নিচের লিঙ্ক থেকে সকল বট কমান্ড ও তাদের ব্যবহার ও কার্যাবলী জেনে নিন.. 🙏🥺
 '''
 
 def bot_help(update, context):
     button = button_build.ButtonMaker()
-    button.buildbutton("Other Commands", f"https://telegra.ph/{help}")
+    button.buildbutton("⁉️ বট কমান্ড ও ব্যবহারবিধি ⁉️", f"https://telegra.ph/{help}")
     reply_markup = InlineKeyboardMarkup(button.build_menu(1))
     sendMarkup(help_string, context.bot, update, reply_markup)
 
