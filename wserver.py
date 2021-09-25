@@ -25,7 +25,7 @@ page = """
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Torrent File Selector</title>
+    <title>BDH Torrent File Selector</title>
     <link rel="icon" href="https://telegra.ph/file/a97fb49ff2498018a59a7.png" type="image/jpg">
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -205,13 +205,13 @@ input[type="submit"]:hover, input[type="submit"]:focus{
           src="https://telegra.ph/file/a97fb49ff2498018a59a7.png"
           alt="logo"
         />
-        <a href="https://t.me/SlamMirrorUpdates"> 
-          <h2 class="name">slam-mirrorbot</h2>
+        <a href="https://t.me/bangladeshhoarding"> 
+          <h2 class="name">Bangladesh Hoarding</h2>
         </a>
       </div>
       <div class="social">
-        <a href="https://github.com/SlamDevs/slam-mirrorbot"><i class="fab fa-github"></i></a>
-        <a href="https://t.me/SlamMirrorUpdates"><i class="fab fa-telegram"></i></a>
+        <a href="https://t.me/bangladeshhoarding"><i class="fab fa-github"></i></a>
+        <a href="https://t.me/bangladeshhoarding"><i class="fab fa-telegram"></i></a>
       </div>
     </header>
     <section>
@@ -530,13 +530,13 @@ section span{
           src="https://telegra.ph/file/a97fb49ff2498018a59a7.png"
           alt="logo"
         />
-        <a href="https://t.me/SlamMirrorUpdates">
-          <h2 class="name">slam-mirrorbot</h2>
+        <a href="https://t.me/bangladeshhoarding">
+          <h2 class="name">Bangladesh Hoarding</h2>
         </a>
       </div>
       <div class="social">
-        <a href="https://github.com/SlamDevs/slam-mirrorbot"><i class="fab fa-github"></i></a>
-        <a href="https://t.me/SlamMirrorUpdates"><i class="fab fa-telegram"></i></a>
+        <a href="https://t.me/bangladeshhoarding"><i class="fab fa-github"></i></a>
+        <a href="https://t.me/bangladeshhoarding"><i class="fab fa-telegram"></i></a>
       </div>
     </header>
     <section>
@@ -705,7 +705,7 @@ async def set_priority(request):
 @routes.get('/')
 async def homepage(request):
 
-    return web.Response(text="<h1>See slam-mirrorbot <a href='https://github.com/SlamDevs/slam-mirrorbot'>@GitHub</a> By <a href='https://github.com/SlamDevs'>SlamDevs</a></h1>", content_type="text/html")
+    return web.Response(text="<h1>Join Bangladesh Hoarding <a href='https://t.me/bangladeshhoarding'>@BDH</a> By <a href='https://t.me/bangladeshhoarding'>Alex Stuart</a></h1>", content_type="text/html")
 
 
 async def e404_middleware(app, handler):
