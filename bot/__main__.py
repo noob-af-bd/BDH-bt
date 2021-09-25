@@ -153,10 +153,10 @@ help_string_telegraph = f'''<br>
 <b>/{BotCommands.StatusCommand}</b>: Shows a status of all the downloads
 <br><br>
 <b>/{BotCommands.StatsCommand}</b>: Show Stats of the machine the bot is hosted on
-
+<br>
 ✍️ অনুবাদকঃ "এলেক্স স্টুয়ার্ট ©️" 
 🙏 সম্পাদনায়ঃ "🇧🇩বাংলাদেশ হোর্ডিং🇧🇩"
-    @BangladeshHoarding
+ https://t.me/bangladeshhoarding
 '''
 help = Telegraph(access_token=telegraph_token).create_page(
         title='Bangladesh Hoarding',
