@@ -30,9 +30,9 @@ class AriaDownloadHelper:
                 gdrive = GoogleDriveHelper()
                 smsg, button = gdrive.drive_list(sname, True)
             if smsg:
-                dl.getListener().onDownloadError('File/Folder already available in Drive.\n\n')
+                dl.getListener().onDownloadError('আপনি যেই ফাইল মিরর করতে চাচ্ছেন তা ড্রাইভে আছে.🤘\n\n')
                 aria2.remove([download], force=True)
-                sendMarkup("Here are the search results:", dl.getListener().bot, dl.getListener().update, button)
+                sendMarkup("নিচের লিংকে আপনার ফাইল পেয়ে যাবেন 🔽:", dl.getListener().bot, dl.getListener().update, button)
                 return
         if (TORRENT_DIRECT_LIMIT is not None or TAR_UNZIP_LIMIT is not None) and dl is not None:
             sleep(1)
@@ -72,7 +72,7 @@ class AriaDownloadHelper:
         sleep(4)
         dl = getDownloadByGid(gid)
         if dl: 
-            dl.getListener().onDownloadError('Dead torrent!')
+            dl.getListener().onDownloadError('🔴 সীড বিহীন টরেন্ট! 🔴 ভালো সীডার আছে এমন টরেন্ট ট্রাই করুন!')
 
     @new_thread
     def __onDownloadError(self, api, gid):
