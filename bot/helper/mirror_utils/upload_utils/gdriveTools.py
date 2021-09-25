@@ -786,7 +786,7 @@ class GoogleDriveHelper:
                                 siurls = short_url(urls)
                                 msg += f' <b>| <a href="{siurls}">🌐 ভিউ লিংক 🌐</a></b>'
                         else:
-                            msg += f' <b>| <a href="{url}"⚡ ইনডেক্স লিংক ⚡</a></b>'
+                            msg += f' <b>| <a href="{url}">⚡ ইনডেক্স লিংক ⚡</a></b>'
                             if VIEW_LINK:
                                 msg += f' <b>| <a href="{urls}">🌐 ভিউ লিংক 🌐</a></b>'
                 msg += '<br><br>'
