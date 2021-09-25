@@ -31,32 +31,33 @@ def stats(update, context):
     cpuUsage = psutil.cpu_percent(interval=0.5)
     memory = psutil.virtual_memory().percent
     disk = psutil.disk_usage('/').percent
-    stats = f'<b>Bot Uptime:</b> <code>{currentTime}</code>\n' \
-            f'<b>Total Disk Space:</b> <code>{total}</code>\n' \
-            f'<b>Used:</b> <code>{used}</code> ' \
-            f'<b>Free:</b> <code>{free}</code>\n\n' \
-            f'<b>Upload:</b> <code>{sent}</code>\n' \
-            f'<b>Download:</b> <code>{recv}</code>\n\n' \
-            f'<b>CPU:</b> <code>{cpuUsage}%</code> ' \
-            f'<b>RAM:</b> <code>{memory}%</code> ' \
-            f'<b>DISK:</b> <code>{disk}%</code>'
+    stats = f'<b>⏲️ আপটাইম:  {currentTime}</b>\n' \
+            f'<b>📀 টোটাল ডিস্কস্পেস:  {total}</b>\n' \
+            f'<b>🌡️ব্যবহিত স্পেস:  {used}</b>\n' \
+            f'<b>🔥 ফ্রী স্পেস :  {free}</b>\n\n' \
+            f'📊 টোটাল ব্যান্ডউইথ 📊\n<b>📤 আপলোড:  {sent}</b>\n' \
+            f'<b>📥 ডাউনলোড:  {recv}</b>\n\n' \
+            f'<b>🖥️ সিপিউ লোড:  {cpuUsage}</b>%\n' \
+            f'<b>💾 র‍্যাম:  {memory}%</b>\n' \
+            f'<b>💿 ডিস্ক:  {disk}%</b>\n' \
+            f'<b>✍️ অনুবাদকঃ "এলেক্স স্টুয়ার্ট ©️" \n🙏 সম্পাদনায়ঃ "🇧🇩বাংলাদেশ হোর্ডিং🇧🇩" \n@BangladeshHoarding</b>'
     sendMessage(stats, context.bot, update)
 
 
 def start(update, context):
     buttons = button_build.ButtonMaker()
-    buttons.buildbutton("Repo", "https://github.com/SlamDevs/slam-mirrorbot")
-    buttons.buildbutton("Channel", "https://t.me/SlamMirrorUpdates")
+    buttons.buildbutton("Admin", "https://t.me/BDH_PM_bot")
+    buttons.buildbutton("Channel", "https://t.me/bangladeshhoarding")
     reply_markup = InlineKeyboardMarkup(buttons.build_menu(2))
     if CustomFilters.authorized_user(update) or CustomFilters.authorized_chat(update):
         start_string = f'''
-This bot can mirror all your links to Google Drive!
-Type /{BotCommands.HelpCommand} to get a list of available commands
+এই বট সকল ডাইরেক্ট লিঙ্ক/ টরেন্ট গুগল ড্রাইভে আপলোড করে থাকে!
+সকল কমান্ড দেখতে /{BotCommands.HelpCommand} কমান্ড ব্যবহার করুন
 '''
         sendMarkup(start_string, context.bot, update, reply_markup)
     else:
         sendMarkup(
-            'Oops! not a Authorized user.\nPlease deploy your own <b>slam-mirrorbot</b>.',
+            'আরে ভাই আপনারে তো চিনলাম না,পারমিশন নিয়া আসেন 😎 <b>BDH</b>.',
             context.bot,
             update,
             reply_markup,
@@ -64,7 +65,7 @@ Type /{BotCommands.HelpCommand} to get a list of available commands
 
 
 def restart(update, context):
-    restart_message = sendMessage("Restarting, Please wait!", context.bot, update)
+    restart_message = sendMessage("♻️ বট রি-বুট করা হচ্ছে, অপেক্ষা করুন 🙏 !", context.bot, update)
     # Save restart message object in order to reply to it after restarting
     with open(".restartmsg", "w") as f:
         f.truncate(0)
@@ -152,11 +153,15 @@ help_string_telegraph = f'''<br>
 <b>/{BotCommands.StatusCommand}</b>: Shows a status of all the downloads
 <br><br>
 <b>/{BotCommands.StatsCommand}</b>: Show Stats of the machine the bot is hosted on
+
+✍️ অনুবাদকঃ "এলেক্স স্টুয়ার্ট ©️" 
+🙏 সম্পাদনায়ঃ "🇧🇩বাংলাদেশ হোর্ডিং🇧🇩"
+    @BangladeshHoarding
 '''
 help = Telegraph(access_token=telegraph_token).create_page(
-        title='Slam Mirrorbot Help',
-        author_name='Slam Mirrorbot',
-        author_url='https://github.com/SlamDevs/slam-mirrorbot',
+        title='Bangladesh Hoarding',
+        author_name='Alex Stuart',
+        author_url='https://t.me/bangladeshhoarding',
         html_content=help_string_telegraph,
     )["path"]
 
@@ -184,6 +189,10 @@ help_string = f'''
 /{BotCommands.ExecHelpCommand}: Get help for Executor module (Only Owner)
 
 /{BotCommands.TsHelpCommand}: Get help for Torrent search module
+
+✍️ অনুবাদকঃ "এলেক্স স্টুয়ার্ট ©️" 
+🙏 সম্পাদনায়ঃ "🇧🇩বাংলাদেশ হোর্ডিং🇧🇩"
+    @BangladeshHoarding
 '''
 
 def bot_help(update, context):
@@ -229,11 +238,11 @@ def main():
     if os.path.isfile(".restartmsg"):
         with open(".restartmsg") as f:
             chat_id, msg_id = map(int, f)
-        bot.edit_message_text("Restarted successfully!", chat_id, msg_id)
+        bot.edit_message_text("✅ রি-বুট সম্পূর্ন হয়েছে ,🆗 এখন ব্যবহার করতে পারেন!", chat_id, msg_id)
         os.remove(".restartmsg")
     elif OWNER_ID:
         try:
-            text = "<b>Bot Restarted!</b>"
+            text = "<b>🆙🆙 ছোট্ট একটা রি-বুট দিয়ে চলে আসলাম,,,😁😁!</b>"
             bot.sendMessage(chat_id=OWNER_ID, text=text, parse_mode=ParseMode.HTML)
             if AUTHORIZED_CHATS:
                 for i in AUTHORIZED_CHATS:
