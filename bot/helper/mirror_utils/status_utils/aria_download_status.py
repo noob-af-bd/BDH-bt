@@ -86,14 +86,14 @@ class AriaDownloadStatus(Status):
         LOGGER.info(f"Cancelling Download: {self.name()}")
         download = self.aria_download()
         if download.is_waiting:
-            self.__listener.onDownloadError("Cancelled by user")
+            self.__listener.onDownloadError("ডাউনলোডকারী ডাউনলোডটি বাতিল করেছে")
             aria2.remove([download], force=True)
             return
         if len(download.followed_by_ids) != 0:
             downloads = aria2.get_downloads(download.followed_by_ids)
-            self.__listener.onDownloadError('Download stopped by user!')
+            self.__listener.onDownloadError('ডাউনলোডকারী ডাউনলোডটি বাতিল করেছে!!')
             aria2.remove(downloads, force=True)
             aria2.remove([download], force=True)
             return
-        self.__listener.onDownloadError('Download stopped by user!')
+        self.__listener.onDownloadError('ডাউনলোডকারী ডাউনলোডটি বাতিল করেছে!!')
         aria2.remove([download], force=True)
