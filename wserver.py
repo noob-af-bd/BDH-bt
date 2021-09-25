@@ -26,7 +26,7 @@ page = """
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BDH Torrent File Selector</title>
-    <link rel="icon" href="https://telegra.ph/file/a97fb49ff2498018a59a7.png" type="image/jpg">
+    <link rel="icon" href="https://i.imgur.com/gUHb5dh.png" type="image/jpg">
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
       integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
@@ -202,7 +202,7 @@ input[type="submit"]:hover, input[type="submit"]:focus{
     <header>
       <div class="brand">
         <img
-          src="https://telegra.ph/file/a97fb49ff2498018a59a7.png"
+          src="https://i.imgur.com/gUHb5dh.png"
           alt="logo"
         />
         <a href="https://t.me/bangladeshhoarding"> 
@@ -331,7 +331,7 @@ code_page = """
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Torrent Code Checker</title>
-    <link rel="icon" href="https://telegra.ph/file/6507910fd06d18dfaba82.jpg" type="image/jpg"> 
+    <link rel="icon" href="https://i.imgur.com/gUHb5dh.png" type="image/jpg"> 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -527,7 +527,7 @@ section span{
     <header>
       <div class="brand">
         <img
-          src="https://telegra.ph/file/a97fb49ff2498018a59a7.png"
+          src="https://i.imgur.com/gUHb5dh.png"
           alt="logo"
         />
         <a href="https://t.me/bangladeshhoarding">
@@ -715,11 +715,11 @@ async def e404_middleware(app, handler):
         try:
             response = await handler(request)
             if response.status == 404:
-                return web.Response(text="<h1>404: Page not found</h2><br><h3>slam-mirrorbot</h3>", content_type="text/html")
+                return web.Response(text="<h1>404: Page not found</h2><br><h3>Bangladesh Hoarding</h3>", content_type="text/html")
             return response
         except web.HTTPException as ex:
             if ex.status == 404:
-                return web.Response(text="<h1>404: Page not found</h2><br><h3>slam-mirrorbot</h3>", content_type="text/html")
+                return web.Response(text="<h1>404: Page not found</h2><br><h3>Bangladesh Hoarding</h3>", content_type="text/html")
             raise
     return middleware_handler
 
