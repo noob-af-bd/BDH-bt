@@ -10,7 +10,7 @@ import threading
 def mirror_status(update, context):
     with download_dict_lock:
         if len(download_dict) == 0:
-            message = "No active downloads"
+            message = "📋 আপাতত কোন ফাইল ডাউনলোড/আপলোড হচ্ছে না"
             reply_message = sendMessage(message, context.bot, update)
             threading.Thread(target=auto_delete_message, args=(bot, update.message, reply_message)).start()
             return
