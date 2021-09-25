@@ -192,7 +192,7 @@ class MirrorListener(listeners.MirrorListeners):
             uname = f"@{self.message.from_user.username}"
         else:
             uname = f'<a href="tg://user?id={self.message.from_user.id}">{self.message.from_user.first_name}</a>'
-        msg = f"{uname} your download has been stopped due to: {error}"
+        msg = f"{uname} আপনার ডাউনলোডটি বাতিল হয়েছে, কারন: {error}"
         sendMessage(msg, self.bot, self.update)
         if count == 0:
             self.clean()
@@ -213,13 +213,13 @@ class MirrorListener(listeners.MirrorListeners):
                 uname = f'<a href="tg://user?id={self.message.from_user.id}">{self.message.from_user.first_name}</a>'
             count = len(files)
             if self.message.chat.type == 'private':
-                msg = f'<b>Name:</b> <code>{link}</code>\n'
-                msg += f'<b>Total Files:</b> {count}'
+                msg = f'<b>📂● ফাইলের নাম:</b> <code>{link}</code>\n'
+                msg += f'<b>╟● ফাইল সংখ্যা:</b> {count}'
                 sendMessage(msg, self.bot, self.update)
             else:
                 chat_id = str(self.message.chat.id)[4:]
-                msg = f"<b>Name:</b> <a href='https://t.me/c/{chat_id}/{self.uid}'>{link}</a>\n"
-                msg += f'<b>Total Files:</b> {count}\n'
+                msg = f"<b>>📂● ফাইলের নাম</b> <a href='https://t.me/c/{chat_id}/{self.uid}'>{link}</a>\n"
+                msg += f'<b>╟● ফাইল সংখ্যা:</b> {count}\n'
                 msg += f'cc: {uname}\n\n'
                 fmsg = ''
                 for index, item in enumerate(list(files), start=1):
@@ -244,19 +244,19 @@ class MirrorListener(listeners.MirrorListeners):
                 update_all_messages()
             return
         with download_dict_lock:
-            msg = f'<b>Filename: </b><code>{download_dict[self.uid].name()}</code>\n<b>Size: </b><code>{size}</code>'
+            msg = f'<b>📂● ফাইলের নাম: </b><code>{download_dict[self.uid].name()}</code>\n<b>╔● সাইজ: </b><code>{size}</code>'
             if os.path.isdir(f'{DOWNLOAD_DIR}/{self.uid}/{download_dict[self.uid].name()}'):
-                msg += '\n<b>Type: </b><code>Folder</code>'
-                msg += f'\n<b>SubFolders: </b><code>{folders}</code>'
-                msg += f'\n<b>Files: </b><code>{files}</code>'
+                msg += '\n<b>╟● ফাইলের ধরন: </b><code>Folder</code>'
+                msg += f'\n<b>╟● সাব-ফোল্ডার সংখ্যা: </b><code>{folders}</code>'
+                msg += f'\n<b>╟● ফাইল সংখ্যা: </b><code>{files}</code>'
             else:
-                msg += f'\n<b>Type: </b><code>{typ}</code>'
+                msg += f'\n<b>╚● ধরন: </b><code>{typ}</code>'
             buttons = button_build.ButtonMaker()
             if SHORTENER is not None and SHORTENER_API is not None:
                 surl = short_url(link)
-                buttons.buildbutton("☁️ Drive Link", surl)
+                buttons.buildbutton("☁️G-DRIVE লিংক☁️", surl)
             else:
-                buttons.buildbutton("☁️ Drive Link", link)
+                buttons.buildbutton("☁️G-DRIVE লিংক☁️", link)
             LOGGER.info(f'Done Uploading {download_dict[self.uid].name()}')
             if INDEX_URL is not None:
                 url_path = requests.utils.quote(f'{download_dict[self.uid].name()}')
@@ -265,19 +265,19 @@ class MirrorListener(listeners.MirrorListeners):
                     share_url += '/'
                     if SHORTENER is not None and SHORTENER_API is not None:
                         siurl = short_url(share_url)
-                        buttons.buildbutton("⚡ Index Link", siurl)
+                        buttons.buildbutton("⚡ ইনডেক্স লিংক ⚡", siurl)
                     else:
-                        buttons.buildbutton("⚡ Index Link", share_url)
+                        buttons.buildbutton("⚡ ইনডেক্স লিংক ⚡", share_url)
                 else:
                     share_urls = f'{INDEX_URL}/{url_path}?a=view'
                     if SHORTENER is not None and SHORTENER_API is not None:
                         siurl = short_url(share_url)
-                        buttons.buildbutton("⚡ Index Link", siurl)
+                        buttons.buildbutton("⚡ ইনডেক্স লিংক ⚡", siurl)
                         if VIEW_LINK:
                             siurls = short_url(share_urls)
-                            buttons.buildbutton("🌐 View Link", siurls)
+                            buttons.buildbutton("🌐 ভিউ লিংক", siurls)
                     else:
-                        buttons.buildbutton("⚡ Index Link", share_url)
+                        buttons.buildbutton("⚡ ইনডেক্স লিংক ⚡", share_url)
                         if VIEW_LINK:
                             buttons.buildbutton("🌐 View Link", share_urls)
             if BUTTON_FOUR_NAME is not None and BUTTON_FOUR_URL is not None:
@@ -291,7 +291,7 @@ class MirrorListener(listeners.MirrorListeners):
             else:
                 uname = f'<a href="tg://user?id={self.message.from_user.id}">{self.message.from_user.first_name}</a>'
             if uname is not None:
-                msg += f'\n\ncc: {uname}'
+               msg += f'\n\n{uname} ,আপনার ফাইল মিরর হয়ে গেছে 😊 '
             try:
                 fs_utils.clean_download(download_dict[self.uid].path())
             except FileNotFoundError:
@@ -404,7 +404,7 @@ def _mirror(bot, update, isTar=False, extract=False, isZip=False, isQbit=False, 
             return
 
     elif not bot_utils.is_url(link) and not bot_utils.is_magnet(link):
-        sendMessage('No download source provided', bot, update)
+        sendMessage('ও ভাইই ডাউনলোড সোর্স তো দিবেন 😐,\n নাকি হাওয়া থেইকা ডাউনলোড করুম 😡,\n মিরর করতে হলে ডিরেক্ট লিঙ্ক অথবা টরেন্ট মেগনেট 🧲 লিংক প্রদান করুন, /mirror [link]', bot, update)
         return
     elif not os.path.exists(link) and not bot_utils.is_mega_link(link) and not bot_utils.is_gdrive_link(link) and not bot_utils.is_magnet(link):
         try:
@@ -422,7 +422,7 @@ def _mirror(bot, update, isTar=False, extract=False, isZip=False, isQbit=False, 
 
     if bot_utils.is_gdrive_link(link):
         if not isTar and not extract and not isLeech:
-            sendMessage(f"Use /{BotCommands.CloneCommand} to clone Google Drive file/folder\nUse /{BotCommands.TarMirrorCommand} to make tar of Google Drive folder\nUse /{BotCommands.UnzipMirrorCommand} to extracts archive Google Drive file", bot, update)
+            sendMessage(f"গুগল ড্রাইভ ফাইল/ফোল্ডার কপি করতে /{BotCommands.CloneCommand} ব্যবহার করুন\nগুগল ড্রাইভ ফাইল/ফোল্ডার জিপ করতে /{BotCommands.TarMirrorCommand} ব্যবহার করুন\nগুগল ড্রাইভ ফাইল/ফোল্ডার আনজিপ করতে /{BotCommands.UnzipMirrorCommand} ব্যবহার করুন", bot, update)
             return
         res, size, name, files = gdriveTools.GoogleDriveHelper().clonehelper(link)
         if res != "":
@@ -445,11 +445,11 @@ def _mirror(bot, update, isTar=False, extract=False, isZip=False, isQbit=False, 
 
     elif bot_utils.is_mega_link(link):
         if BLOCK_MEGA_LINKS:
-            sendMessage("Mega links are blocked!", bot, update)
+            sendMessage("দুঃখিত, Mega.nz থেকে মিরর করা যাবে না, Mega.nz থেকে মিরর করতে Mega.nz এর প্রিমিয়াম একাউন্ট প্রয়োজন, যা আপাতত আমাদের কাছে নেই", bot, update)
             return
         link_type = bot_utils.get_mega_link_type(link)
         if link_type == "folder" and BLOCK_MEGA_FOLDER:
-            sendMessage("Mega folder are blocked!", bot, update)
+            sendMessage("দুঃখিত, Mega.nz থেকে মিরর করা যাবে না, Mega.nz থেকে মিরর করতে Mega.nz এর প্রিমিয়াম একাউন্ট প্রয়োজন, যা আপাতত আমাদের কাছে নেই", bot, update)
         else:
             mega_dl = MegaDownloadHelper()
             mega_dl.add_download(link, f'{DOWNLOAD_DIR}{listener.uid}/', listener)
