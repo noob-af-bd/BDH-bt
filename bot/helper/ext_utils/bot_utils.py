@@ -21,15 +21,15 @@ PAGE_NO = 1
 
 
 class MirrorStatus:
-    STATUS_UPLOADING = "Uploading...📤"
-    STATUS_DOWNLOADING = "Downloading...📥"
-    STATUS_CLONING = "Cloning...♻️"
-    STATUS_WAITING = "Queued...📝"
-    STATUS_FAILED = "Failed 🚫. Cleaning Download..."
-    STATUS_PAUSE = "Paused...⭕️"
-    STATUS_ARCHIVING = "Archiving...🔐"
-    STATUS_EXTRACTING = "Extracting...📂"
-    STATUS_SPLITTING = "Splitting...✂️"
+    STATUS_UPLOADING = "📤...আপলোডিং...📤"
+    STATUS_DOWNLOADING = "📥...ডাউনলোডিং...📥"
+    STATUS_CLONING = "♻️..ক্লোনিং..♻️"
+    STATUS_WAITING = "📝..অপেক্ষামান...📝"
+    STATUS_FAILED = "ডাউনলোড ব্যর্থ হয়েছে 🚫. ডিলিট করা হচ্ছে..."
+    STATUS_PAUSE = "ডাউনলোড থামানো হয়েছে...⭕️"
+    STATUS_ARCHIVING = "🔐...জিপ করা হচ্ছে...🔐"
+    STATUS_EXTRACTING = "📂...আনজিপ করা হচ্ছে...📂"
+    STATUS_SPLITTING = "✂️.Splitting.✂️"
 
 
 PROGRESS_MAX_SIZE = 100 // 8
@@ -108,10 +108,10 @@ def get_progress_bar_string(status):
     p = min(max(p, 0), 100)
     cFull = p // 8
     cPart = p % 8 - 1
-    p_str = '█' * cFull
+    p_str = '●' * cFull
     if cPart >= 0:
         p_str += PROGRESS_INCOMPLETE[cPart]
-    p_str += ' ' * (PROGRESS_MAX_SIZE - cFull)
+    p_str += '○' * (PROGRESS_MAX_SIZE - cFull)
     p_str = f"[{p_str}]"
     return p_str
 
@@ -128,40 +128,42 @@ def get_readable_message():
                 globals()['PAGE_NO'] -= 1
             start = COUNT
         for index, download in enumerate(list(download_dict.values())[start:], start=1):
-            msg += f"<b>Filename:</b> <code>{download.name()}</code>"
-            msg += f"\n<b>Status:</b> <i>{download.status()}</i>"
+            msg += f"<b>📂● ফাইলের নাম:</b> <code>{download.name()}</code>"
+            msg += f"\n<b>╔● বর্তমান অবস্থা: <i>{download.status()} </i></b>"
             if download.status() not in [
                 MirrorStatus.STATUS_ARCHIVING,
                 MirrorStatus.STATUS_EXTRACTING,
                 MirrorStatus.STATUS_SPLITTING,
             ]:
-                msg += f"\n<code>{get_progress_bar_string(download)} {download.progress()}</code>"
+                msg += f"\n<b>╟● প্রোগ্রেস:</b> <code>{get_progress_bar_string(download)}</code>" \
+                       f"\n<b>╟● সম্পূর্ন হয়েছে: {download.progress()} of 100% </b>"
                 if download.status() == MirrorStatus.STATUS_CLONING:
-                    msg += f"\n<b>Cloned:</b> <code>{get_readable_file_size(download.processed_bytes())}</code> of <code>{download.size()}</code>"
+                    msg += f"\n<b>ক্লোন হয়েছে:</b> <code>{get_readable_file_size(download.processed_bytes())}</code> of <code>{download.size()}</code>"
                 elif download.status() == MirrorStatus.STATUS_UPLOADING:
-                    msg += f"\n<b>Uploaded:</b> <code>{get_readable_file_size(download.processed_bytes())}</code> of <code>{download.size()}</code>"
+                    msg += f"\n<b>╟● আপলোড হয়েছে: {get_readable_file_size(download.processed_bytes())} of {download.size()} </b>"
                 else:
-                    msg += f"\n<b>Downloaded:</b> <code>{get_readable_file_size(download.processed_bytes())}</code> of <code>{download.size()}</code>"
-                msg += f"\n<b>Speed:</b> <code>{download.speed()}</code> <b>ETA:</b> <code>{download.eta()}</code>"
+                    msg += f"\n<b>╟● ডাউনলোড হয়েছে: {get_readable_file_size(download.processed_bytes())} of {download.size()} </b>"
+                msg += f"\n<b>╟● স্পীড: {download.speed()} </b>" \
+                       f"\n<b>╟● সম্পূর্ন হতে: {download.eta()} </b>"
                 try:
-                    msg += f"\n<b>Seeders:</b> <code>{download.aria_download().num_seeders}</code>" \
-                           f" | <b>Peers:</b> <code>{download.aria_download().connections}</code>"
+                    msg += f"\n<b>╚● সীডার: {download.aria_download().num_seeders} </b>" \
+                        f" | <b>● পিয়ার: {download.aria_download().connections} </b>"
                 except:
                     pass
                 try:
-                    msg += f"\n<b>Seeders:</b> <code>{download.torrent_info().num_seeds}</code>" \
-                           f" | <b>Leechers:</b> <code>{download.torrent_info().num_leechs}</code>"
+                    msg += f"\n<b>╚● সীডার:</b> {download.torrent_info().num_seeds}" \
+                        f" | <b>● লীচার:</b> {download.torrent_info().num_leechs}"
                 except:
                     pass
-                msg += f"\n<b>To Cancel:</b> <code>/{BotCommands.CancelMirror} {download.gid()}</code>"
-            msg += "\n\n"
+                msg += f"\n<b>🚫:</b> <code>/{BotCommands.CancelMirror} {download.gid()}</code>"
+            msg += "\n╠▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬╣\n"
             if STATUS_LIMIT is not None and index == STATUS_LIMIT:
                 break
         if STATUS_LIMIT is not None and dick_no > STATUS_LIMIT:
-            msg += f"<b>Page:</b> <code>{PAGE_NO}</code>/<code>{pages}</code> | <b>Tasks:</b> <code>{dick_no}</code>\n"
+            msg += f"ডাউনলোড হচ্ছে: {dick_no} টি ফাইল | পৃষ্ঠা সংখ্যা: {PAGE_NO}/{pages}\n"
             buttons = button_build.ButtonMaker()
-            buttons.sbutton("Previous", "pre")
-            buttons.sbutton("Next", "nex")
+            buttons.sbutton("⬅️ পূর্ববর্তী", "pre")
+            buttons.sbutton("পরবর্তী ➡️", "nex")
             button = InlineKeyboardMarkup(buttons.build_menu(2))
             return msg, button
         return msg, ""
