@@ -439,7 +439,7 @@ class GoogleDriveHelper:
                     typ = 'File'
                 try:
                     msg += f'\n<b>╔● ফাইল সাইজ: </b><code>{get_readable_file_size(int(meta.get("size")))}</code>'
-                    msg += f'\n<b>╚● ফাইলের ধরন: </b><code>{typeee}</code>'
+                    msg += f'\n<b>╚● ফাইলের ধরন: </b><code>{typ}</code>'
                 except TypeError:
                     pass
                 if INDEX_URL is not None:
